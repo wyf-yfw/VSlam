@@ -1,5 +1,4 @@
 import numpy as np
-import torchvision
 import torch.nn as nn
 import cv2
 import torch
@@ -15,18 +14,18 @@ class FeatureExtractor(nn.Module):
         self.sharpen2 = nn.Conv2d(2, 1, kernel_size=3, stride=1, padding=1, bias=False)
 
         self.laplacian_kernel = torch.tensor([[[0, 1, 0],
-                                [1, -4, 1],
-                                [0, 1, 0]],
-                               [[0, 1, 0],
-                                [1, -4, 1],
-                                [0, 1, 0]]], dtype=torch.float32).unsqueeze(1)  # shape (2, 1, 3, 3)
+                                               [1, -4, 1],
+                                               [0, 1, 0]],
+                                              [[0, 1, 0],
+                                               [1, -4, 1],
+                                               [0, 1, 0]]], dtype=torch.float32).unsqueeze(1)  # shape (2, 1, 3, 3)
 
         self.sharpen_kernel1 = torch.tensor([[[[-1.0, -1.0, -1.0],
-                                              [-1.0, -2.0, -1.0],
-                                              [-1.0, -1.0, -1.0]],
-                                             [[0.0, 0.0, 0.0],
-                                              [0.0, 1.0, 0.0],
-                                              [0.0, 0.0, 0.0]]]], dtype=torch.float32)
+                                               [-1.0, -2.0, -1.0],
+                                               [-1.0, -1.0, -1.0]],
+                                              [[0.0, 0.0, 0.0],
+                                               [0.0, 1.0, 0.0],
+                                               [0.0, 0.0, 0.0]]]], dtype=torch.float32)
         self.sharpen_kernel2 = torch.tensor([[[[1.0, 1.0, 1.0],
                                                [1.0, 2.0, 1.0],
                                                [1.0, 1.0, 1.0]],
@@ -38,7 +37,6 @@ class FeatureExtractor(nn.Module):
         self.laplacian.weight.data = self.laplacian_kernel
         self.sharpen1.weight.data = self.sharpen_kernel1
         self.sharpen2.weight.data = self.sharpen_kernel2
-
 
     def conv(self, img):
         # 确保输入图像为浮点数并添加批次和通道维度
