@@ -40,6 +40,7 @@ class FeatureExtractor(nn.Module):
 
     def conv(self, img):
         # 确保输入图像为浮点数并添加批次和通道维度
+        img = img.astype(np.float32) / 255.0
         img = torch.from_numpy(img).float().unsqueeze(0).unsqueeze(0)
         img = self.laplacian(img)
         img1 = self.sharpen1(img)
@@ -56,7 +57,6 @@ class FeatureExtractor(nn.Module):
 if __name__ == '__main__':
     FE = FeatureExtractor()
     image = cv2.imread('../data/00023.jpg', cv2.IMREAD_GRAYSCALE)
-    image = image.astype(np.float32) / 255.0
     cv2.imshow('image', image)
     image = FE.conv(image)
     _, image = cv2.threshold(image, 0.8, 1, cv2.THRESH_BINARY)
