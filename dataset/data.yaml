@@ -1,0 +1,6 @@
+name: [ '0' ,'1', '2', '3', '4','5','6','7' ]
+
+train: /Users/wanggang/PycharmProjects/slam/dataset/train
+val: /Users/wanggang/PycharmProjects/slam/dataset/val
+test: /Users/wanggang/PycharmProjects/slam/dataset/test
+
